@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #fbeee6, #f9dcd1);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn {
+    background-color: #ff9eb5;
+    color: white;
+  }
+  .btn:hover {
+    background-color: #ff7c99;
+    transform: scale(1.05);
+  }
+  .secondary {
+    background-color: #f1e0d6;
+    color: #5a3e36;
+  }
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .overlay.show {
+    display: flex;
+  }
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    animation: fadeIn 0.4s ease;
+  }
+  .message-body {
+    white-space: pre-line;
+    font-size: 1rem;
+    text-align: left;
+    animation: fadeIn 0.5s ease;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+  #pictureView {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  #couplePhoto {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.95);}
+    to {opacity: 1; transform: scale(1);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Main button -->
+<button id="openBtn" class="btn">💌 Click me, My Love 💌</button>
+
+<!-- Overlay popup -->
+<div id="overlay" class="overlay">
+  <div class="modal">
+
+    <!-- Love letter -->
+    <p class="message-body" id="messageBody"></p>
+    
+    <!-- Actions for message view -->
+    <div class="actions" id="messageActions">
+      <button class="btn" id="againBtn">💕 Read Again 💕</button>
+      <button class="btn" id="showPicBtn">📸 See Our Picture 📸</button>
+      <button class="btn secondary" id="closeBtn2">❌ Close</button>
+    </div>
+
+    <!-- Picture view -->
+    <div id="pictureView">
+      <img id="couplePhoto" src="https://i.postimg.cc/QNTgmwTf/Untitled-design.png" />
+      <br><br>
+      <button class="btn secondary" id="backBtn">💌 Back to Message</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const message = `❤️ Love,
+
+Pasensya na talaga sa nagawa ko. Alam kong nasaktan kita at sobrang bigat sa puso ko na ako pa yung dahilan. 💔 Ayokong maramdaman mo ulit yung sakit na yun, kaya gagawin ko ang lahat para magbago at maging mas mabuting ako para sa’yo. 🌸
+
+Mahal na mahal kita, Alai, at ipaparamdam ko sa’yo araw-araw kung gaano ka kahalaga sa’kin. 🌹 Hindi lang ngayon, kundi palagi. ✨ Pangako, Love, magiging mas maayos ako at mas magmamahal pa sa’yo nang sobra. 💖`;
+
+  // Elements
+  const openBtn = document.getElementById('openBtn');
+  const overlay = document.getElementById('overlay');
+  const messageBody = document.getElementById('messageBody');
+  const messageActions = document.getElementById('messageActions');
+  const showPicBtn = document.getElementById('showPicBtn');
+  const pictureView = document.getElementById('pictureView');
+  const backBtn = document.getElementById('backBtn');
+  const closeBtn2 = document.getElementById('closeBtn2');
+  const againBtn = document.getElementById('againBtn');
+
+  // Load message
+  messageBody.textContent = message;
+
+  // Show overlay
+  openBtn.addEventListener('click', () => {
+    overlay.classList.add('show');
+  });
+
+  // Close overlay
+  closeBtn2.addEventListener('click', () => {
+    overlay.classList.remove('show');
+    showMessageView();
+  });
+
+  // Show picture only
+  showPicBtn.addEventListener('click', () => {
+    messageBody.style.display = "none";
+    messageActions.style.display = "none";
+    pictureView.style.display = "block";
+  });
+
+  // Back to message
+  backBtn.addEventListener('click', () => {
+    showMessageView();
+  });
+
+  // Show message again
+  againBtn.addEventListener('click', () => {
+    showMessageView();
+  });
+
+  function showMessageView() {
+    pictureView.style.display = "none";
+    messageBody.style.display = "block";
+    messageActions.style.display = "flex";
+  }
+
+  // Close when clicking outside
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('show');
+      showMessageView();
+    }
+  });
+</script>
+</body>
+</html>
